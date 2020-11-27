@@ -1,0 +1,21 @@
+sudo: false
+language: python
+python: 
+  -3.5
+  -3.6
+matrix:
+  include:
+    -python: 3.6
+     dist: xenial
+     sudo: true
+install:
+  - pip install pipenv
+  - pipenv install pytest 
+  - pipenv install requests
+
+script:
+ - pipenv run coverage run --source=zhouxiaofeng-apitest -m pytest -v
+ - pipenv run coverage report -m
+
+after_success: 
+ - pipenv run coveralls
